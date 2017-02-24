@@ -1,0 +1,19 @@
+.home-logo {
+  margin-right: 12px;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #292b2c;
+}
+
+.login-field {
+  align-self: auto;
+  flex: auto;
+}
+
+.cs-black {
+  background-color: #292b2c
+}
