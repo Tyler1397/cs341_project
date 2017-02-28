@@ -210,39 +210,45 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\login.css" />
-    <Content Include="Content\Calendar.css" />
-    <Content Include="Pages\calendar.html" />
-    <Content Include="Scripts\Calendar.js" />
-    <Content Include="Pages\login.htm" />
-    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Pages\login.html" />
+    <Content Include="Pages\register.html" />
+    <Content Include="Pages\employee.html" />
+    <Content Include="Pages\admin.html" />
+    <Content Include="Pages\patient.html" />
+    <Content Include="Scripts\DefaultScripts\angular-route.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Controllers.js" />
-    <Content Include="Scripts\Main.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DefaultScripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\DefaultScripts\angular.min.js" />
+    <Content Include="Scripts\TylerScripts\adminController.js" />
+    <Content Include="Scripts\TylerScripts\employeeController.js" />
+    <Content Include="Scripts\TylerScripts\loginController.js" />
+    <Content Include="Scripts\TylerScripts\Main.js" />
+    <Content Include="Scripts\DefaultScripts\bootstrap.js" />
+    <Content Include="Scripts\DefaultScripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <None Include="Scripts\DefaultScripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\DefaultScripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\DefaultScripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\DefaultScripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\DefaultScripts\jquery.validate.js" />
+    <Content Include="Scripts\DefaultScripts\jquery.validate.min.js" />
+    <Content Include="Scripts\DefaultScripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\DefaultScripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\DefaultScripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\DefaultScripts\respond.js" />
+    <Content Include="Scripts\DefaultScripts\respond.min.js" />
+    <Content Include="Scripts\DefaultScripts\_references.js" />
     <Content Include="index.html" />
-    <Content Include="Pages\home.htm" />
+    <Content Include="Pages\home.html" />
+    <Content Include="Scripts\TylerScripts\patientController.js" />
+    <Content Include="Scripts\TylerScripts\registerController.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -262,7 +268,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\DefaultScripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

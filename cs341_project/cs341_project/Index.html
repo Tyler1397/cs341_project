@@ -2,27 +2,37 @@
 <html ng-app="cs341">
 <head>
     <title></title>
-	<meta charset="utf-8" />
-    <base href="Index.html">
-    <script src="Scripts/angular.min.js"></script>
-    <script src="Scripts/angular-route.min.js"></script>
-    <script src="Scripts/Main.js"></script>
-    <script src="Scripts/Controllers.js"></script>
+    <meta charset="utf-8" />
+    <base href="/">
 
-    <script src="Scripts/_references.js"></script>
-    <script src="Scripts/bootstrap.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-1.10.2.intellisense.js"></script>
-    <script src="Scripts/jquery-1.10.2.js"></script>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/jquery.validate-vsdoc.js"></script>
-    <script src="Scripts/jquery.validate.js"></script>
-    <script src="Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="Scripts/jquery.validate.min.js"></script>
-    <script src="Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="Scripts/modernizr-2.6.2.js"></script>
-    <script src="Scripts/respond.js"></script>
-    <script src="Scripts/respond.min.js"></script>
+    <script src="Scripts/DefaultScripts/_references.js"></script>
+    <script src="Scripts/DefaultScripts/angular.min.js"></script>
+    <script src="Scripts/DefaultScripts/angular-ui-router.min.js"></script>
+
+    <script src="Scripts/DefaultScripts/bootstrap.min.js"></script>
+    <script src="Scripts/DefaultScripts/jquery-1.10.2.intellisense.js"></script>
+    <script src="Scripts/DefaultScripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/DefaultScripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/DefaultScripts/jquery.validate-vsdoc.js"></script>
+    <script src="Scripts/DefaultScripts/jquery.validate.js"></script>
+    <script src="Scripts/DefaultScripts/jquery.validate.min.js"></script>
+    <script src="Scripts/DefaultScripts/jquery.validate.unobtrusive.js"></script>
+    <script src="Scripts/DefaultScripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="Scripts/DefaultScripts/modernizr-2.6.2.js"></script>
+    <script src="Scripts/DefaultScripts/respond.js"></script>
+    <script src="Scripts/DefaultScripts/respond.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <script src="Scripts/TylerScripts/Main.js"></script>
+    <script src="Scripts/TylerScripts/adminController.js"></script>
+    <script src="Scripts/TylerScripts/employeeController.js"></script>
+    <script src="Scripts/TylerScripts/loginController.js"></script>
+    <script src="Scripts/TylerScripts/patientController.js"></script>
+    <script src="Scripts/TylerScripts/registerController.js"></script>
 
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +41,7 @@
     <link href="Content/Calendar.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top" style="background-color:dodgerblue;color:white">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -39,23 +49,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">CS 341</a>
+                <a class="navbar-brand" ui-sref="#" style="color:white">CS 341</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#calendar">Calendar</a></li>
+                    <li><a ui-sref="home" style="color:white">Home</a></li>
+                    <li><a ui-sref="patient" style="color:white">Patient</a></li>
+                    <li><a ui-sref="employee" style="color:white">Employee</a></li>
+                    <li><a ui-sref="admin" style="color:white">Admin</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+                    <li><a ui-sref="login" style="color:white"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="row row-well">
-       <div style="margin-top:1%">
-            <div ng-view></div>
-       </div>
+        <div class="container-fluid" style="margin-top:1%">
+            <div class="col-lg-1 col-md"></div>
+            <div class="col-lg-10 col-md-offset-2" ui-view></div>
+        </div>
     </div>
 </body>
 </html>
