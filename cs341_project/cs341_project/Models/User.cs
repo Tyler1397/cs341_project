@@ -15,6 +15,8 @@ namespace cs341_project.Models
 
         public string Password { get; set; }
 
-        public Boolean Active { get; set; }
+        public string Active { get; set; }
+
+        public string Type { get; set; }
     }
 }

@@ -17,7 +17,8 @@
             data: scope.input
         })
     .then(function (response) {
-        alert(response.data);
+        alert("here we go");
+        alert(response.data+"");
     });
     }
 
