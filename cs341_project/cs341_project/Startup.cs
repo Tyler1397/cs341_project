@@ -8,7 +8,7 @@ namespace cs341_project
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+
         }
     }
 }
