@@ -7,11 +7,11 @@ namespace cs341_project.Models
 {
     public class Patient: User
     {
-        public IEnumerable<Appointment> RequestedAppointments { get; set; }
+        public LinkedList<Appointment> RequestedAppointments { get; set; }
 
-        public IEnumerable<Appointment> FutureAppointments { get; set; }
+        public LinkedList<Appointment> FutureAppointments { get; set; }
 
-        public IEnumerable<Appointment> PastAppointments { get; set; }
+        public LinkedList<Appointment> PastAppointments { get; set; }
 
     }
 }

@@ -13,7 +13,11 @@ namespace cs341_project.Models
 
         public User User { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
+        public Patient Patient { get; set; }
+
+        public Employee Employee { get; set; }
+
+        public Admin Admin { get; set; }
 
         public string ErrorMessage { get; set; }
 

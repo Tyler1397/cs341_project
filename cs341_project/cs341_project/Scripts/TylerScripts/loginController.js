@@ -1,4 +1,4 @@
-﻿cs341.controller('loginController', function ($scope, $http) {
+﻿cs341.controller('loginController', function ($scope, $http, $rootScope, $state) {
     scope = $scope;
 
     scope.username = '';
@@ -17,8 +17,8 @@
             data: scope.input
         })
     .then(function (response) {
-        alert("here we go");
-        alert(response.data+"");
+        $rootScope.data = response.data;
+        $state.transitionTo('patient', { arg: 'arg' });
     });
     }
 
