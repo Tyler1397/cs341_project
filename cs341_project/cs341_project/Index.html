@@ -52,12 +52,6 @@
                 <a class="navbar-brand" ui-sref="#" style="color:white">CS 341</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a ui-sref="home" style="color:white">Home</a></li>
-                    <li><a ui-sref="patient" style="color:white">Patient</a></li>
-                    <li><a ui-sref="employee" style="color:white">Employee</a></li>
-                    <li><a ui-sref="admin" style="color:white">Admin</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a ui-sref="login" style="color:white"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
                 </ul>
@@ -67,7 +61,8 @@
     <div class="row row-well">
         <div class="container-fluid" style="margin-top:1%">
             <div class="col-lg-1 col-md-12"></div>
-            <div class="col-md-offset-2" ui-view></div>
+            <div id="main" class="col-md-offset-2" ui-view>
+            </div>
         </div>
     </div>
 </body>

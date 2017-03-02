@@ -18,7 +18,20 @@
         })
     .then(function (response) {
         $rootScope.data = response.data;
-        $state.transitionTo('patient', { arg: 'arg' });
+        $("#main").fadeOut("slow", function () {
+            switch ($rootScope.data.User.Type) {
+                case "admin":
+                    $state.transitionTo('admin', { arg: 'arg' });
+                    break;
+                case "employee":
+                    $state.transitionTo('employee', { arg: 'arg' });
+                    break;
+                case "patient":
+                    $state.transitionTo('patient', { arg: 'arg' });
+                    break;
+            }
+        });
+
     });
     }
 

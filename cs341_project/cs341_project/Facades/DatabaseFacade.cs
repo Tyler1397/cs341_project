@@ -37,6 +37,7 @@ namespace cs341_project.Facades
                     result.User.LastName = dataReader["Last"].ToString();
                     result.User.Active = dataReader["Active"].ToString();
                     result.User.Type= dataReader["Type"].ToString();
+                    result.Type = dataReader["Type"].ToString();
                     result.Valid = true;
                 }
                 dataReader.Close();

@@ -1,5 +1,7 @@
-﻿cs341.controller('patientController', function ($scope, $rootScope) {
+﻿cs341.controller('patientController', function ($state, $scope, $rootScope) {
+    $('#main').hide().fadeIn("slow");
     $scope.userData = $rootScope.data;
+    $state.current.name = 'patient';
 
     $scope.message = "Hello "+$scope.userData.User.FirstName;
 

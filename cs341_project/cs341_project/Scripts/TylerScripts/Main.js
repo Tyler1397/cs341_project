@@ -3,15 +3,9 @@ var cs341 = angular.module("cs341", ['ui.router']);
 
 cs341.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('login');
 
     $stateProvider
-
-        // HOME STATES AND NESTED VIEWS ========================================
-        .state('home', {
-            url: '/home',
-            templateUrl: 'Pages/home.html'
-        })
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('login', {
             url: '/login',

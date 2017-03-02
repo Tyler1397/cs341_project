@@ -22,7 +22,7 @@ namespace cs341_project.Controllers
                 case "employee":
                     facade.SetupEmployee(result);
                     break;
-                case "Patient":
+                case "patient":
                     facade.SetupPatient(result);
                     break;
             }

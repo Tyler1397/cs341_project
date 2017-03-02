@@ -1,5 +1,6 @@
-﻿cs341.controller('adminController', function ($scope) {
-
-    $scope.message = 'admin';
+﻿cs341.controller('adminController', function ($scope,$rootScope) {
+    $('#main').hide().fadeIn("slow");
+    $scope.userData = $rootScope.data;
+    $scope.message = 'Hello '+$scope.userData.User.FirstName;
 
 });
