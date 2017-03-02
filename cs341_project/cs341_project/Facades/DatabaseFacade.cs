@@ -186,5 +186,24 @@ namespace cs341_project.Facades
                 return;
             }
         }
+
+        public Appointment AddAppointment(Appointment app)
+        {
+            string sql = "INSERT INTO dbo.Appointments VALUES ('"+app.Date+"','" + app.Patient + "','" + app.Employee + "','" + app.Approved + "','" + app.Cancelled + "','" + app.Notes + "','" + app.Time+ "')";
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                cnn.Close();
+                return app;
+            }
+            catch (Exception ex)
+            {
+                app.Notes = ex.ToString();
+                return app;
+            }
+        }
     }
 }

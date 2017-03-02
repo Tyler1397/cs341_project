@@ -43,13 +43,13 @@
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
                             <div class="col-sm-10 col-lg-9">
-                                <input type="text" class="form-control" id="datepicker">
+                                <input ng-model="date" type="text" class="form-control" id="datepicker">
                             </div>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
+                            <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
                             <div class="col-sm-10 col-lg-9">
-                                <select class="form-control" id="type">
+                                <select ng-model="time" class="form-control" id="type">
                                     <option ng-repeat="t in time">{{t}}</option>
                                 </select>
                             </div>
@@ -57,20 +57,38 @@
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
                             <div class="col-sm-10 col-lg-9">
-                                <select class="form-control" id="type">
+                                <select ng-model="type" class="form-control" id="type">
                                     <option>Dental</option>
                                     <option>Cleaning</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group col-lg-12">
+                            <label class="control-label col-sm-2 col-lg-3" for="type">Employee:</label>
+                            <div class="col-sm-10 col-lg-9">
+                                <select ng-model="employee" class="form-control" id="type">
+                                    <option>N/A</option>
+                                    <option ng-value="user.Username" ng-show="user.Type == 'employee'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="control-label col-sm-2 col-lg-3" for="type">Patient:</label>
+                            <div class="col-sm-10 col-lg-9">
+                                <select ng-model="patient" class="form-control" id="type">
+                                    <option>N/A</option>
+                                    <option ng-value="user.Username" ng-show="user.Type == 'patient'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="notes">Notes:</label>
                             <div class="col-sm-10 col-lg-9">
-                                <textarea style="width:100%" id="notes"></textarea>
+                                <textarea ng-model="notes"style="width:100%" id="notes"></textarea>
                             </div>
                         </div>
                         <div style="text-align:right">
-                            <button class="btn-success">Submit</button>
+                            <button class="btn-success" ng-click="submit()">Submit</button>
                         </div>
                     </form>
                 </div>
