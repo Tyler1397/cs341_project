@@ -13,7 +13,7 @@
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Admin.Appointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>

@@ -5,40 +5,40 @@
                 {{message}}!
             </h1>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
+        <div class="col-lg-6" style="height:800px">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">Upcoming Appointments</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li ng-show="app.Approved === 'True'" class="alert alert-info" ng-repeat="app in userData.Patient.FutureAppointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Past Appointments
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li ng-show="app.Approved === 'False'" class="alert alert-success" ng-repeat="app in userData.Patient.FutureAppointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
+        <div class="col-lg-6" style="height:800px">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">Request an Appointment (Not currently functional)</h3>
                 </div>
-                <div class="panel-body col-lg-12">
+                <div class="panel-body col-lg-12" style="height:80%;overflow-y: scroll;">
                     <form class="form-horizontal col-lg-12">
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
@@ -75,16 +75,16 @@
                     </form>
                 </div>
             </div>
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Pending Appointments
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Patient.FutureAppointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>

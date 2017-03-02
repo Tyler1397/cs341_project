@@ -13,7 +13,7 @@
                 <div class="panel-body">
                     <ul>
                         <li ng-show="app.Approved === 'True'" class="alert alert-info" ng-repeat="app in userData.Employee.FutureAppointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                 <div class="panel-body">
                     <ul>
                         <li ng-show="app.Approved === 'False'" class="alert alert-success" ng-repeat="app in userData.Employee.FutureAppointments">
-                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
                         </li>
                     </ul>
                 </div>
