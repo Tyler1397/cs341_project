@@ -5,12 +5,12 @@
                 {{message}}!
             </h1>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
+        <div class="col-lg-6" style="height:800px">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">All Appointments</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
                             {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
@@ -18,27 +18,27 @@
                     </ul>
                 </div>
             </div>
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Past Appointments
+                        Pending Appoinments
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
-                        <li class="alert alert-info" ng-repeat="app in userData.Admin.Users">
-                            {{app.FirstName}} {{app.LastName}} {{app.Password}} {{app.Active}}
+                        <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Admin.Appointments">
+                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
+        <div class="col-lg-6" style="height:800px">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">Schedule an Appointment</h3>
                 </div>
-                <div class="panel-body col-lg-12">
+                <div class="panel-body col-lg-12" style="height:80%;overflow-y: scroll;">
                     <form class="form-horizontal col-lg-12">
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
@@ -75,18 +75,18 @@
                     </form>
                 </div>
             </div>
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Pending Appointments
+                        Users
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
-                        <li class="well" ng-repeat="app in future">
-                            {{app.dr}} {{app.date}} {{app.title}}
+                        <li class="well" ng-repeat="user in userData.Admin.Users">
+                            <b>Username:</b> {{user.Username}} <b>First:</b> {{user.FirstName}} <b>Last:</b> {{user.LastName}} <b>Password:</b> {{user.Password}}
                             <button type="button" class="btn btn-danger btn-xs" style="float:right">
-                                Cancel
+                                Delete
                             </button>
                         </li>
                     </ul>
@@ -95,4 +95,3 @@
         </div>
     </div>
 </div>
-

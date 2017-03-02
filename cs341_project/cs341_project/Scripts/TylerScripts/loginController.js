@@ -1,8 +1,10 @@
 ﻿cs341.controller('loginController', function ($scope, $http, $rootScope, $state) {
     scope = $scope;
+    $('#main').hide().fadeIn("slow");
+    $('#loginLogout').text("Login");
+    $('#error').hide();
 
     scope.username = '';
-
     scope.password = '';
 
 
@@ -18,6 +20,11 @@
         })
     .then(function (response) {
         $rootScope.data = response.data;
+        $scope.data = $rootScope.data;
+        if ($scope.data.Valid == false || $scope.data.Valid == null) {
+            $('#error').show("slow");
+            return;
+        }
         $("#main").fadeOut("slow", function () {
             switch ($rootScope.data.User.Type) {
                 case "admin":

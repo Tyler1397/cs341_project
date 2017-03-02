@@ -1,9 +1,17 @@
 ﻿cs341.controller('patientController', function ($state, $scope, $rootScope) {
     $('#main').hide().fadeIn("slow");
-    $scope.userData = $rootScope.data;
-    $state.current.name = 'patient';
+    $('#loginLogout').text("Logout");
 
-    $scope.message = "Hello "+$scope.userData.User.FirstName;
+    
+    $scope.userData = $rootScope.data;
+
+    if ($scope.userData == null || $scope.userData.Valid == false) {
+        $("#main").fadeOut("slow",function(){
+            $state.transitionTo('login', { arg: 'arg' });
+        })
+    }
+
+    $scope.message = "Hello "+ $scope.userData.User.FirstName;
 
 
     $("#datepicker").datepicker();

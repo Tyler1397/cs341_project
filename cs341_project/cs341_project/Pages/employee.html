@@ -1,6 +1,39 @@
-﻿<div>
-    <h1>
-        {{message}}
-        suh dude
-    </h1>
+﻿<div class="col-lg-10">
+    <div class="row well">
+        <div class="panel-heading">
+            <h1>
+                {{message}}!
+            </h1>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Upcoming Appointments</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li ng-show="app.Approved === 'True'" class="alert alert-info" ng-repeat="app in userData.Employee.FutureAppointments">
+                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Past Appointments
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li ng-show="app.Approved === 'False'" class="alert alert-success" ng-repeat="app in userData.Employee.FutureAppointments">
+                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -12,7 +12,7 @@
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li class="alert alert-info" ng-repeat="app in userData.Employee.FutureAppointments">
+                        <li ng-show="app.Approved === 'True'" class="alert alert-info" ng-repeat="app in userData.Patient.FutureAppointments">
                             {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
                         </li>
                     </ul>
@@ -26,8 +26,8 @@
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li class="alert alert-info" ng-repeat="app in past">
-                            {{app.dr}} {{app.date}} {{app.title}}
+                        <li ng-show="app.Approved === 'False'" class="alert alert-success" ng-repeat="app in userData.Patient.FutureAppointments">
+                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
                         </li>
                     </ul>
                 </div>
@@ -83,11 +83,8 @@
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li class="well" ng-repeat="app in future">
-                            {{app.dr}} {{app.date}} {{app.title}}
-                            <button type="button" class="btn btn-danger btn-xs" style="float:right">
-                                Cancel
-                            </button>
+                        <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Patient.FutureAppointments">
+                            {{app.Patient}} {{app.Date}} {{app.Employee}} {{app.Notes}}
                         </li>
                     </ul>
                 </div>

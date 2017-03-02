@@ -25,7 +25,7 @@ cs341.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('employee', {
             url: '/employee',
             templateUrl: 'Pages/employee.html',
-            controller: 'loginController'
+            controller: 'employeeController'
         })
         .state('register', {
             url: '/register',
