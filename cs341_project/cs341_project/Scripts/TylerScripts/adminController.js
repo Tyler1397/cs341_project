@@ -1,7 +1,7 @@
 ﻿cs341.controller('adminController', function ($state, $scope, $rootScope,$http) {
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Logout");
-
+    $scope.active = '';
 
     $scope.userData = $rootScope.data;
 
@@ -10,10 +10,21 @@
     }
 
     $scope.changeAppointments = function (ele) {
-        alert(ele);
+        if ($scope.active === ele) {
+            $scope.active = '';
+        } else {
+            $scope.active = ele;
+        }
     }
 
-    $("#datepicker").datepicker();
+    $scope.hideInactive = function (id) {
+        if (id === $scope.active) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     $scope.message = "Hello " + $scope.userData.User.FirstName;
 
     $scope.time = ['8:00AM - 9:00AM', '8:30AM - 9:30AM', '9:00AM - 10:00AM',
