@@ -211,7 +211,6 @@ namespace cs341_project.Facades
 
         public String AddUser(User user, string role)
         {
-            bool active = false;
             string sql;
 
             if (UserExists(user.Username))
@@ -221,10 +220,23 @@ namespace cs341_project.Facades
 
             if (user.Type.Equals("admin"))
             {
-                active = true;
+                user.Active = "true";
+            }
+            else
+            {
+                user.Active = "false";
             }
 
-            sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "'," + active + ",'"+user.Type+"','"+role+"');";
+            sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Active + "','" + user.Type + "'";
+
+            if (role != null)
+            {
+                sql = sql+",'"+role+"');";
+            }
+            else
+            {
+                sql = sql+");";
+            }
 
             try
             {
