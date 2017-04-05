@@ -208,5 +208,63 @@ namespace cs341_project.Facades
                 return app;
             }
         }
+
+        public User AddUser(User user, string role)
+        {
+            bool active = false;
+            string sql;
+
+            if (UserExists(user.Username))
+            {
+                return user;
+            }
+
+            if (user.Type.Equals("admin"))
+            {
+                active = true;
+            }
+
+            sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "'," + active + ",'"+user.Type+"','"+role+"');";
+
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                cnn.Close();
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return user;
+            }
+        }
+
+        public bool UserExists(string username)
+        {
+            bool exists = false;
+            string sql = "SELECT Username FROM dbo.Users WHERE Username = '"+username+"';";
+            SqlDataReader dataReader;
+
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                dataReader = command.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    exists = true;
+                }
+                dataReader.Close();
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+                exists = true;
+            }
+
+            return exists;
+        }
     }
 }
