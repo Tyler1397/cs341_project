@@ -9,7 +9,7 @@
         $state.transitionTo('login', { arg: 'arg' });
     }
 
-    $scope.changeAppointment = function (ele) {
+    $scope.changeAppointments = function (ele) {
         alert(ele);
     }
 

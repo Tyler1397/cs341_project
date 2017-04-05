@@ -7,6 +7,8 @@ namespace cs341_project.Models
 {
     public class Appointment
     {
+        public int Id { get; set; }
+
         public string Date { get; set; }
 
         public string Patient { get; set; }

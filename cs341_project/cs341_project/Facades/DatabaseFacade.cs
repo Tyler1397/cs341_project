@@ -85,12 +85,13 @@ namespace cs341_project.Facades
                 command.Dispose();
 
                 // Get all appointments on file
-                sql = "SELECT * FROM dbo.Appointments";
+                sql = "SELECT * FROM dbo.Appointment";
                 command = new SqlCommand(sql, cnn);
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
                     Appointment temp = new Models.Appointment();
+                    temp.Id = Convert.ToInt32(dataReader["Id"]);
                     temp.Date = dataReader["Date"].ToString();
                     temp.Patient = dataReader["Patient"].ToString();
                     temp.Employee = dataReader["Employee"].ToString();
@@ -116,7 +117,7 @@ namespace cs341_project.Facades
             result.Employee = new Models.Employee();
             result.Employee.FutureAppointments = new LinkedList<Appointment>();
 
-            string sql = "SELECT * FROM dbo.Appointments WHERE Employee='"+result.User.Username+"'";
+            string sql = "SELECT * FROM dbo.Appointment WHERE Employee='"+result.User.Username+"'";
             SqlDataReader dataReader;
             try
             {
@@ -126,6 +127,7 @@ namespace cs341_project.Facades
                 while (dataReader.Read())
                 {
                     Appointment temp = new Models.Appointment();
+                    temp.Id = Convert.ToInt32(dataReader["Id"]);
                     temp.Date = dataReader["Date"].ToString();
                     temp.Patient = dataReader["Patient"].ToString();
                     temp.Employee = dataReader["Employee"].ToString();
@@ -154,7 +156,7 @@ namespace cs341_project.Facades
             result.Patient.RequestedAppointments = new LinkedList<Appointment>();
             result.Patient.PastAppointments = new LinkedList<Appointment>();
 
-            string sql = "SELECT * FROM dbo.Appointments WHERE Patient='" + result.User.Username + "'";
+            string sql = "SELECT * FROM dbo.Appointment WHERE Patient='" + result.User.Username + "'";
             SqlDataReader dataReader;
             try
             {
@@ -164,6 +166,7 @@ namespace cs341_project.Facades
                 while (dataReader.Read())
                 {
                     Appointment temp = new Models.Appointment();
+                    temp.Id = Convert.ToInt32(dataReader["Id"]);
                     temp.Date = dataReader["Date"].ToString();
                     temp.Patient = dataReader["Patient"].ToString();
                     temp.Employee = dataReader["Employee"].ToString();
@@ -189,7 +192,7 @@ namespace cs341_project.Facades
 
         public Appointment AddAppointment(Appointment app)
         {
-            string sql = "INSERT INTO dbo.Appointments VALUES ('"+app.Date+"','" + app.Patient + "','" + app.Employee + "','" + app.Approved + "','" + app.Cancelled + "','" + app.Notes + "','" + app.Time+ "')";
+            string sql = "INSERT INTO dbo.Appointment (Date,Patient,Employee,Approved,Cancelled,Notes,Time) VALUES ('"+app.Date+"','" + app.Patient + "','" + app.Employee + "','" + app.Approved + "','" + app.Cancelled + "','" + app.Notes + "','" + app.Time+ "')";
             try
             {
                 cnn.Open();
