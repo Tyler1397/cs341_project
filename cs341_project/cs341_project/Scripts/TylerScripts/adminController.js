@@ -9,6 +9,10 @@
         $state.transitionTo('login', { arg: 'arg' });
     }
 
+    $scope.changeAppointment = function (ele) {
+        alert(ele);
+    }
+
     $("#datepicker").datepicker();
     $scope.message = "Hello " + $scope.userData.User.FirstName;
 

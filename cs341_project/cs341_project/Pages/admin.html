@@ -12,8 +12,9 @@
                 </div>
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
-                        <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
+                        <li id="{{app.Patient}}{{app.Employee}}{{app.Date}}" class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
                             <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
+                            <button id="{{app.Patient}}{{app.Employee}}{{app.Date}}" ng-click="changeAppointment(this)">Test</button>
                         </li>
                     </ul>
                 </div>
