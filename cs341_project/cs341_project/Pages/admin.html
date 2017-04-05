@@ -14,12 +14,14 @@
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
 
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient: {{app.Patient}}  Employee: {{app.Employee}}
-                            <button name="btn-edit" type="button" class="btnbtn-info" ng-click="deleteAppoint(app.Id)" 
-                                                    data-toggle="modal" data-target="#updateAptModal">Edit</button>
-
                             <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
-                            <button name="btn-delete" type="button" class="btn btn-outline-info" ng-click="changeAppointment(app.Id)">Edit</button>
+                            <button name="btn-edit" type="button" class="btn btn-info" ng-click="changeAppointment(app.Id)"
+                                                    data-toggle="modal"
+                                                    data-target="#editModal">Edit</button>
+
+                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient: {{app.Patient}}  Employee: {{app.Employee}}
+                            <button name="btn-delete" type="button" class="btn btn-warning" ng-click="deleteAppoint(app.Id)">Delete</button>
+
                         </li>
                     </ul>
                 </div>
