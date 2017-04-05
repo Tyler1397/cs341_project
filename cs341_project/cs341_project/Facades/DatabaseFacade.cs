@@ -245,11 +245,11 @@ namespace cs341_project.Facades
                 command.ExecuteNonQuery();
                 command.Dispose();
                 cnn.Close();
-                return "wordked";
+                return "worked";
             }
             catch (Exception ex)
             {
-                return ex.ToString();
+                return "Failed to create new user";
             }
         }
 

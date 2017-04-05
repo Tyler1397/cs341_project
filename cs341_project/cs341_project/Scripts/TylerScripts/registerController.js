@@ -3,6 +3,14 @@
 
     scope.adminKey = "admin";
     scope.employeeKey = "employ";
+    
+
+    scope.invalid = function () {
+        if(scope.firstName == null || scope.lastName == null || scope.username == null || scope.password == null){
+            return true;
+        }
+        return false;
+    }
 
     scope.register = function () {
         scope.input = {
@@ -21,7 +29,6 @@
         if (scope.key === scope.employeeKey) {
             scope.input.Type = "employee";
             scope.input.Role = scope.employee;
-            alert(scope.input.Role + " ");
         }
 
         $http({
