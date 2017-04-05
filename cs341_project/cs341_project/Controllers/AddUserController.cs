@@ -6,7 +6,7 @@ namespace cs341_project.Controllers
 {
     public class AddUserController : ApiController
     {
-        [Route("api/AddAppointment")]
+        [Route("api/AddUser")]
         [HttpPost]
         public string Post(Register app)
         {
@@ -16,13 +16,17 @@ namespace cs341_project.Controllers
             temp.Username = app.Username;
             temp.Password = app.Password;
             temp.Type = app.Type;
+
             DatabaseFacade facade = new DatabaseFacade();
-            if (true)
+
+            if (facade.UserExists(temp.Username))
             {
                 return "Username " + app.Username + " already exists ";
             }
-            return "ERROR";
 
+            string t = facade.AddUser(temp, app.Role);
+            return "User: "+temp.Username+" successfully created " + t;
+        
         }
     }
 }

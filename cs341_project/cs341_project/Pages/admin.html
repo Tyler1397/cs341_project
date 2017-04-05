@@ -15,7 +15,7 @@
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
 
                             <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
-                            <button name="btn-edit" type="button" class="btn btn-info" ng-click="changeAppointment(app.Id)"
+                            <button name="btn-edit" type="button" class="btn btn-info" ng-click="changeAppointments(app.Id)"
                                                     data-toggle="modal"
                                                     data-target="#editModal">Edit</button>
 

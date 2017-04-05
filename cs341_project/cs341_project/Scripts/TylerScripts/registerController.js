@@ -1,4 +1,4 @@
-﻿cs341.controller('registerController', function ($scope) {
+﻿cs341.controller('registerController', function ($scope,$http) {
     scope = $scope;
 
     scope.adminKey = "admin";
@@ -23,6 +23,15 @@
             scope.input.Role = scope.employee;
             alert(scope.input.Role + " ");
         }
+
+        $http({
+            url: "api/AddUser",
+            method: "Post",
+            data: scope.input
+        })
+   .then(function (response) {
+       alert(response.data);
+   });
     }
 
 });

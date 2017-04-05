@@ -209,14 +209,14 @@ namespace cs341_project.Facades
             }
         }
 
-        public User AddUser(User user, string role)
+        public String AddUser(User user, string role)
         {
             bool active = false;
             string sql;
 
             if (UserExists(user.Username))
             {
-                return user;
+                return "User already exists";
             }
 
             if (user.Type.Equals("admin"))
@@ -233,11 +233,11 @@ namespace cs341_project.Facades
                 command.ExecuteNonQuery();
                 command.Dispose();
                 cnn.Close();
-                return user;
+                return "wordked";
             }
             catch (Exception ex)
             {
-                return user;
+                return ex.ToString();
             }
         }
 
