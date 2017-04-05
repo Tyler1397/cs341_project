@@ -14,8 +14,9 @@
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
                             <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient: {{app.Patient}}  Employee: {{app.Employee}}
-                            <button type="button" class="btn btn-info">Edit</button>
-                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button name="btn-edit" type="button" class="btn btn-info" data-toggle="modal"
+                                                    data-target="#updateAptModal">Edit</button>
+                            <button name="btn-delete" type="button" class="btn btn-warning">Delete</button>
                         </li>
                     </ul>
                 </div>
