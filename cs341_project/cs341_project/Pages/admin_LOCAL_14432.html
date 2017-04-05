@@ -13,16 +13,10 @@
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
-<<<<<<< HEAD
                             <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient: {{app.Patient}}  Employee: {{app.Employee}}
                             <button name="btn-edit" type="button" class="btn btn-info" data-toggle="modal"
                                                     data-target="#updateAptModal">Edit</button>
                             <button name="btn-delete" type="button" class="btn btn-warning">Delete</button>
-=======
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
-                            <button type="button" class="btn btn-outline-info" ng-click="changeAppointments(app.Id)">Edit</button>
-                            <button type="button" class="btn btn-outline-warning">Info</button>
->>>>>>> 88db15e7b82ca317294424124e422795492e5eb3
                         </li>
                     </ul>
                 </div>
