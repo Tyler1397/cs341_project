@@ -22,11 +22,11 @@ namespace cs341_project.Controllers
 
             if (facade.UserExists(temp.Username))
             {
-                return "true";
+                return "User " + temp.Username + " already exists"; ;
             }
 
             string t = facade.AddUser(temp);
-            return "false";
+            return t;
         
         }
     }

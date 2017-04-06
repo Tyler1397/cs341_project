@@ -220,6 +220,7 @@ namespace cs341_project.Facades
                 return "User already exists";
             }
 
+            /*
             if (user.Type.Equals("admin"))
             {
                 user.Active = "true";
@@ -227,7 +228,7 @@ namespace cs341_project.Facades
             else
             {
                 user.Active = "false";
-            }
+            }*/
 
             sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Active + "','" + user.Type + "'";
 

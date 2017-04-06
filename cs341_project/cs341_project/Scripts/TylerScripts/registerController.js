@@ -28,11 +28,11 @@
 
         if (scope.key === scope.adminKey) {
             input.Type = "admin";
-        }
-
-        if (scope.key === scope.employeeKey) {
+        }else if (scope.key === scope.employeeKey) {
             input.Type = "employee";
             input.Role = scope.employee;
+        } else {
+            input.Type = "patient";
         }
 
 
