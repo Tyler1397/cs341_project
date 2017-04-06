@@ -1,5 +1,5 @@
 ﻿<div class="col-lg-10">
-    <div class="row well">
+    <div class="row well" style="height:800px">
         <div class="panel-heading">
             <h1>
                 {{message}}!
@@ -15,28 +15,29 @@
                         <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
                             <div class="h2">
                                 {{app.Notes}}
-                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="changeAppointments(app.Id)">
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="changeAppointment(app.Id)">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
-                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="deleteAppoint(app.Id)">
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="deleteAppointment(app.Id)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </div>
                             Patient:{{app.Patient}} <br />
                             Employee:{{app.Employee}}<br />
                             Date:{{app.Date}} <br />
-                            Time:{{app.Time}} <br /> <br />
+                            Time:{{app.Time}} <br />
                             <form id="{{app.Id}}changeForm" ng-show="hideInactive(app.Id) == true" class="form-horizontal col-lg-12">
+                                <br />
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <input ng-model="date" type="text" class="form-control" id="datepicker{{app.Id}}" placeholder="{{app.Date}}">
+                                        <input type="date" class="form-control" id="changeDate{{app.Id}}" placeholder="{{app.Date}}">
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <select ng-model="time" class="form-control" id="type">
+                                        <select class="form-control" id="changeTime{{app.Id}}">
                                             <option ng-repeat="t in time">{{t}}</option>
                                         </select>
                                     </div>
@@ -44,7 +45,7 @@
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <select ng-model="type" class="form-control" id="type">
+                                        <select class="form-control"  id="changeType{{app.Id}}">
                                             <option>Dental</option>
                                             <option>Cleaning</option>
                                         </select>
@@ -53,7 +54,7 @@
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Employee:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <select ng-model="employee" class="form-control" id="type">
+                                        <select class="form-control" id="type">
                                             <option>N/A</option>
                                             <option ng-value="user.Username" ng-show="user.Type == 'employee'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
                                         </select>
@@ -66,11 +67,11 @@
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="notes">Notes:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <textarea ng-model="notes" style="width:100%" id="notes" placeholder="{{app.Notes}}"></textarea>
+                                        <textarea style="width:100%" id="notes" placeholder="{{app.Notes}}"></textarea>
                                     </div>
                                 </div>
                                 <div style="text-align:right">
-                                    <button class="btn-success" ng-click="submit()">Submit</button>
+                                    <button class="btn-success" ng-click="updateAppointment(app.id)">Submit</button>
                                 </div>
                             </form>
                         </li>
@@ -85,8 +86,20 @@
                 </div>
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
-                        <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Admin.Appointments">
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
+                        <li class="alert alert-warning" ng-repeat="app in userData.Admin.Appointments">
+                            <div class="h2">
+                                {{app.Notes}}
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            Patient:{{app.Patient}} <br />
+                            Employee:{{app.Employee}}<br />
+                            Date:{{app.Date}} <br />
+                            Time:{{app.Time}} <br />
                         </li>
                     </ul>
                 </div>
@@ -100,25 +113,11 @@
                 <div class="panel-body col-lg-12" style="height:80%;overflow-y: scroll;">
                     <form class="form-horizontal col-lg-12">
                         <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <input ng-model="date" type="text" class="form-control" id="datepicker">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <select ng-model="time" class="form-control" id="type">
-                                    <option ng-repeat="t in time">{{t}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
                             <div class="col-sm-10 col-lg-9">
                                 <select ng-model="type" class="form-control" id="type">
-                                    <option>Dental</option>
-                                    <option>Cleaning</option>
+                                    <option value="Dentist">Dental</option>
+                                    <option value="Hygenist">Cleaning</option>
                                 </select>
                             </div>
                         </div>
@@ -126,8 +125,21 @@
                             <label class="control-label col-sm-2 col-lg-3" for="type">Employee:</label>
                             <div class="col-sm-10 col-lg-9">
                                 <select ng-model="employee" class="form-control" id="type">
-                                    <option>N/A</option>
-                                    <option ng-value="user.Username" ng-show="user.Type == 'employee'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                    <option ng-value="user.Username" ng-show="user.Role == type" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="control-label col-sm-2 col-lg-3" for="date">Date:</label>
+                            <div class="col-sm-10 col-lg-9">
+                                <input ng-model="date"  type="date" id="date" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
+                            <div class="col-sm-10 col-lg-9">
+                                <select ng-model="time" class="form-control" id="type">
+                                    <option ng-repeat="t in time" ng-show="employeeAvailable(t)">{{t}}</option>
                                 </select>
                             </div>
                         </div>
@@ -147,7 +159,7 @@
                             </div>
                         </div>
                         <div style="text-align:right">
-                            <button class="btn-success" ng-click="submit()">Submit</button>
+                            <button class="btn-success" ng-click="createAppointment()">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -162,9 +174,6 @@
                     <ul>
                         <li class="well" ng-repeat="user in userData.Admin.Users">
                             <b>Username:</b> {{user.Username}} <b>First:</b> {{user.FirstName}} <b>Last:</b> {{user.LastName}} <b>Password:</b> {{user.Password}}
-                            <button type="button" class="btn btn-danger btn-xs" style="float:right">
-                                Delete
-                            </button>
                         </li>
                     </ul>
                 </div>

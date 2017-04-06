@@ -16,16 +16,17 @@ namespace cs341_project.Controllers
             temp.Username = app.Username;
             temp.Password = app.Password;
             temp.Type = app.Type;
+            temp.Role = app.Role;
 
             DatabaseFacade facade = new DatabaseFacade();
 
             if (facade.UserExists(temp.Username))
             {
-                return "Username " + app.Username + " already exists ";
+                return "true";
             }
 
-            string t = facade.AddUser(temp, app.Role);
-            return "User: "+temp.Username+" successfully created " + t;
+            string t = facade.AddUser(temp);
+            return "false";
         
         }
     }

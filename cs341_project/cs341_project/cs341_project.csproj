@@ -209,6 +209,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddAppointmentController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
+    <Compile Include="Controllers\DeleteAppointmentController.cs" />
     <Compile Include="Facades\DatabaseFacade.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\login.css" />
+    <Content Include="loading.gif" />
     <Content Include="Pages\login.html" />
     <Content Include="Pages\register.html" />
     <Content Include="Pages\employee.html" />

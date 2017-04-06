@@ -37,6 +37,7 @@ namespace cs341_project.Facades
                     result.User.LastName = dataReader["Last"].ToString();
                     result.User.Active = dataReader["Active"].ToString();
                     result.User.Type= dataReader["Type"].ToString();
+                    result.User.Role = dataReader["Role"].ToString();
                     result.Type = dataReader["Type"].ToString();
                     result.Valid = true;
                 }
@@ -79,6 +80,7 @@ namespace cs341_project.Facades
                     temp.LastName = dataReader["Last"].ToString();
                     temp.Active = dataReader["Active"].ToString();
                     temp.Type = dataReader["Type"].ToString();
+                    temp.Role = dataReader["Role"].ToString();
                     result.Admin.Users.AddFirst(temp);
                 }
                 dataReader.Close();
@@ -90,7 +92,7 @@ namespace cs341_project.Facades
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    Appointment temp = new Models.Appointment();
+                    Appointment temp = new Appointment();
                     temp.Id = Convert.ToInt32(dataReader["Id"]);
                     temp.Date = dataReader["Date"].ToString();
                     temp.Patient = dataReader["Patient"].ToString();
@@ -151,7 +153,7 @@ namespace cs341_project.Facades
 
         public void SetupPatient(LoginResult result)
         {
-            result.Patient = new Models.Patient();
+            result.Patient = new Patient();
             result.Patient.FutureAppointments = new LinkedList<Appointment>();
             result.Patient.RequestedAppointments = new LinkedList<Appointment>();
             result.Patient.PastAppointments = new LinkedList<Appointment>();
@@ -165,7 +167,7 @@ namespace cs341_project.Facades
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    Appointment temp = new Models.Appointment();
+                    Appointment temp = new Appointment();
                     temp.Id = Convert.ToInt32(dataReader["Id"]);
                     temp.Date = dataReader["Date"].ToString();
                     temp.Patient = dataReader["Patient"].ToString();
@@ -209,7 +211,7 @@ namespace cs341_project.Facades
             }
         }
 
-        public String AddUser(User user, string role)
+        public String AddUser(User user)
         {
             string sql;
 
@@ -229,9 +231,9 @@ namespace cs341_project.Facades
 
             sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Active + "','" + user.Type + "'";
 
-            if (role != null)
+            if (user.Role != null)
             {
-                sql = sql+",'"+role+"');";
+                sql = sql+",'"+ user.Role + "');";
             }
             else
             {
@@ -277,6 +279,24 @@ namespace cs341_project.Facades
             }
 
             return exists;
+        }
+
+        public string DeleteAppointment(string id)
+        {
+            String sql = "DELETE FROM dbo.Appointment WHERE Id='"+id+"'";
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                cnn.Close();
+                return "Successfully deleted appointment";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
         }
     }
 }

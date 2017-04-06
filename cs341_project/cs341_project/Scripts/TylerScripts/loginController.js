@@ -4,11 +4,13 @@
     $('#loginLogout').text("Login");
     $('#error').hide();
 
+    scope.loading = false;
     scope.username = '';
     scope.password = '';
 
 
     scope.submit = function () {
+        scope.loading = true;
         scope.input = {
             Username: scope.username,
             Password: scope.password
@@ -21,6 +23,7 @@
     .then(function (response) {
         $rootScope.data = response.data;
         $scope.data = $rootScope.data;
+        scope.loading = false;
         if ($scope.data.Valid == false || $scope.data.Valid == null) {
             $('#error').show("slow");
             return;
