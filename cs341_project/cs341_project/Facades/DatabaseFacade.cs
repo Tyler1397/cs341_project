@@ -230,16 +230,8 @@ namespace cs341_project.Facades
                 user.Active = "false";
             }*/
 
-            sql = "INSERT INTO dbo.Users VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Active + "','" + user.Type + "'";
+            sql = "INSERT INTO dbo.Users (Username,Password,First,Last,Active,Type,Role)VALUES ('" + user.Username + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Active + "','" + user.Type + "','" + user.Role + "');"; ;
 
-            if (user.Role != null)
-            {
-                sql = sql+",'"+ user.Role + "');";
-            }
-            else
-            {
-                sql = sql+");";
-            }
 
             try
             {
