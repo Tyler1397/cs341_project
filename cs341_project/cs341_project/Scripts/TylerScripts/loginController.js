@@ -8,9 +8,7 @@
     scope.username = '';
     scope.password = '';
 
-
-    scope.submit = function () {
-        scope.loading = true;
+    scope.login = function () {
         scope.input = {
             Username: scope.username,
             Password: scope.password
@@ -43,6 +41,14 @@
         });
 
     });
+    }
+
+    scope.submit = function () {
+        var delayMillis = 2000; //1 second
+        scope.loading = true;
+        setTimeout(function () {
+            scope.login();
+        }, delayMillis)
     }
 
 
