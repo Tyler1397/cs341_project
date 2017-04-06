@@ -252,7 +252,7 @@ namespace cs341_project.Facades
             }
             catch (Exception ex)
             {
-                return "Failed to create new user";
+                return "Failed to create new user " + ex;
             }
         }
 
