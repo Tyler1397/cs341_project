@@ -1,0 +1,1 @@
+﻿SELECT Id,Message from dbo.Messages inner join dbo.AllUsers ON ([User]) = ([Username]) Where Username='Lockback'

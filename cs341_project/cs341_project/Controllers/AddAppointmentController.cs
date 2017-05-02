@@ -13,10 +13,17 @@ namespace cs341_project.Controllers
     {
         [Route("api/AddAppointment")]
         [HttpPost]
-        public Appointment Post(Appointment app)
+        public Appointment Post(AppointmentTemplate app)
         {
             DatabaseFacade facade = new DatabaseFacade();
-            return facade.AddAppointment(app);
+            Appointment output = new Models.Appointment();
+            output.Patient = facade.GetPartialUser(app.Patient);
+            output.Employee = facade.GetPartialUser(app.Employee);
+            output.Status = app.Status;
+            output.Title = app.Title;
+            output.Time = app.Time;
+            output.Status = app.Status;
+            return facade.AddAppointment(output);
             
         }
     }

@@ -5,20 +5,18 @@ using System.Web;
 
 namespace cs341_project.Models
 {
-    public class Appointment
+    public class AppointmentTemplate
     {
-        public String Id { get; set; }
+        public String Patient { get; set; }
 
-        public User Patient { get; set; }
-        
-        public User Employee { get; set; }
-        
+        public String Employee { get; set; }
+
         public String Date { get; set; }
-        
+
         public String Time { get; set; }
-        
+
         public String Status { get; set; }
-        
-        public String Title { get; set; } 
+
+        public String Title { get; set; }
     }
 }

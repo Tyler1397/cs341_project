@@ -20,6 +20,25 @@
         }
     }
 
+    // function takes in an id representing a username and sets its status to deleted
+    $scope.deleteUser = function (id) {
+        var answer = confirm("Are you sure you want to delete " + id + "?");
+        if (answer == true) {
+            $http({
+                url: "api/DeleteUser",
+                method: "Post",
+                data: JSON.stringify(id + "")
+            })
+   .then(function (response) {
+       for (var i = 0; i < $scope.userData.User.Users.length; i++) {
+           if ($scope.userData.User.Users[i].Username == id) {
+               $scope.userData.User.Users[i].Status = "Deleted";
+           }
+       }
+   });
+        }
+    }
+
     // function takes in a time var, then checks to see if the time is available, given the current selections
     $scope.employeeAvailable = function (time) {
         for (var i = 0; i < $scope.userData.Admin.Appointments.length; i++) {
@@ -38,7 +57,7 @@
             $http({
                 url: "api/DeleteAppointment",
                 method: "Post",
-                data: id + ""
+                data: JSON.stringify(id + "")
             })
    .then(function (response) {
        for (var i = 0; i < $scope.userData.Admin.Appointments.length ; i++) {
@@ -65,11 +84,27 @@
         }
     }
 
+    // function takes in a message id, and deletes it
+    $scope.deleteMessage = function (id) {
+        $http({
+            url: "api/DeleteMessage",
+            method: "Post",
+            data: JSON.stringify(id + "")
+        }).then(function () {
+            for (var i = 0; i < $scope.userData.User.Messages.length; i++) {
+                if ($scope.userData.User.Messages[i].Id === id) {
+                    $scope.userData.User.Messages.splice(i, 1);
+                    return;
+                }
+            }
+        });
+    }
+
     // welcome message
     $scope.message = "Hello " + $scope.userData.User.FirstName;
 
     // all allowable times for appointments
-    $scope.time = ['8:00AM - 9:00AM','9:00AM - 10:00AM','10:00AM - 11:00AM','11:00AM - 12:00PM','1:00PM - 2:00PM','2:00PM - 3:00PM','3:00PM - 4:00PM', '4:00PM - 5PM'];
+    $scope.time = ['8:00AM - 9:00AM', '9:00AM - 10:00AM', '10:00AM - 11:00AM', '11:00AM - 12:00PM', '1:00PM - 2:00PM', '2:00PM - 3:00PM', '3:00PM - 4:00PM', '4:00PM - 5PM'];
 
     // function grabs all info for a new appointment,checks to see if it is a valid appointment, and attempts to schedule it
     $scope.createAppointment = function () {
@@ -77,9 +112,8 @@
             Date: $filter('date')($scope.date, 'MM/dd/yyyy'),
             Patient: $scope.patient,
             Employee: $scope.employee,
-            Approved: true,
-            Cancelled: false,
-            Notes: $scope.notes,
+            Status: "Active",
+            Title: $scope.notes,
             Time: $scope.time
         };
         $http({
@@ -88,7 +122,7 @@
             data: input
         })
    .then(function (response) {
-       $scope.userData.Admin.Appointments.push(response.data);
+       $scope.userData.User.Appointments.push(response.data);
        $rootScope.data = $scope.userData;
    });
     }

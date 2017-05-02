@@ -1,0 +1,7 @@
+﻿INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'DanJohnson', N'pass', N'Dan', N'Johnson', N'', N'employee', N'Dentist')
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'Jake', N'jake', N'Jake', N'Wolfe', N'true', N'employee', N'Hygenist')
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'JaneDoe', N'janedoe', N'Jane', N'Doe', N'', N'patient', N'')
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'Jeremy', N'jeremy', N'Jeremy', N'Watson', N'true', N'patient', NULL)
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'MaryRiley', N'maryriley', N'Mary', N'Riley', N'', N'employee', N'Hygenist')
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'Quentin', N'quentin', N'Quentin', N'Goehrig', N'true', N'employee', N'Dentist')
+INSERT INTO [dbo].[Users] ([Username], [Password], [First], [Last], [Active], [Type], [Role]) VALUES (N'Tyler', N'tyler', N'Tyler', N'Timm', N'true', N'admin', NULL)

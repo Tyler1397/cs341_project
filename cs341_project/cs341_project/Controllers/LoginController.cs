@@ -9,23 +9,11 @@ namespace cs341_project.Controllers
     {
         [Route("api/Login")]
         [HttpPost]
-        public LoginResult Post(LoginCredentials login)
+        public UserResult Post(LoginCredentials login)
         {
             DatabaseFacade facade = new DatabaseFacade();
-            LoginResult result = new LoginResult();
-            facade.GetUser(login, result);
-            switch (result.User.Type)
-            {
-                case "admin":
-                    facade.SetupAdmin(result);
-                    break;
-                case "employee":
-                    facade.SetupEmployee(result);
-                    break;
-                case "patient":
-                    facade.SetupPatient(result);
-                    break;
-            }
+            UserResult result = new UserResult();
+            result = facade.GetUser(login);
             return result;
         }
     }

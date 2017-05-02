@@ -4,9 +4,15 @@
     $('#loginLogout').text("Login");
     $('#error').hide();
 
+    scope.errorExists = false;
+    scope.message = '';
     scope.loading = false;
     scope.username = '';
     scope.password = '';
+
+    scope.errorExists = function(){
+        return $scope.data.User == null;
+    }
 
     scope.login = function () {
         scope.input = {
@@ -19,32 +25,36 @@
             data: scope.input
         })
     .then(function (response) {
-        $rootScope.data = response.data;
-        $scope.data = $rootScope.data;
-        scope.loading = false;
-        if ($scope.data.Valid == false || $scope.data.Valid == null) {
-            $('#error').show("slow");
-            return;
+        if (response.data.User == null) {
+            scope.errorExists = true;
+            scope.message = response.data.Message;
+            scope.loading = false;
+            
+        } else {
+            scope.errorExists = false;
+            $rootScope.data = response.data;
+            $scope.data = $rootScope.data;
+            scope.loading = false;
+            $("#main").fadeOut("slow", function () {
+                switch ($rootScope.data.User.Type) {
+                    case "admin":
+                        $state.transitionTo('admin', { arg: 'arg' });
+                        break;
+                    case "employee":
+                        $state.transitionTo('employee', { arg: 'arg' });
+                        break;
+                    case "patient":
+                        $state.transitionTo('patient', { arg: 'arg' });
+                        break;
+                }
+            });
         }
-        $("#main").fadeOut("slow", function () {
-            switch ($rootScope.data.User.Type) {
-                case "admin":
-                    $state.transitionTo('admin', { arg: 'arg' });
-                    break;
-                case "employee":
-                    $state.transitionTo('employee', { arg: 'arg' });
-                    break;
-                case "patient":
-                    $state.transitionTo('patient', { arg: 'arg' });
-                    break;
-            }
-        });
 
     });
     }
 
     scope.submit = function () {
-        var delayMillis = 2000; //1 second
+        var delayMillis = 1000; //1 second
         scope.loading = true;
         setTimeout(function () {
             scope.login();

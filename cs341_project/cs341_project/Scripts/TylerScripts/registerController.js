@@ -17,11 +17,14 @@
     }
 
     scope.register = function () {
+        var today = new Date();
         input = {
             FirstName: scope.firstName,
             LastName: scope.lastName,
             Username: scope.username,
             Password: scope.password,
+            Date: (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear(),
+            Status: "Active",
             Role: null,
             Type: null
         }

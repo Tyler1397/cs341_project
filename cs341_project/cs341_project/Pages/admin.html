@@ -8,13 +8,28 @@
         <div class="col-lg-6" style="height:800px">
             <div class="panel panel-primary" style="height:40%">
                 <div class="panel-heading">
-                    <h3 class="panel-title">All Appointments</h3>
+                    <h3 class="panel-title">
+                        Notifications
+                    </h3>
+                </div>
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
+                    <div class="alert alert-warning" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:1px">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true" ng-click="deleteMessage(msg.Id)">&times;</span>
+                        </button>
+                        {{msg.Info}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary" style="height:40%">
+                <div class="panel-heading">
+                    <h2 class="panel-title">All Appointments</h2>
                 </div>
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
-                        <li class="alert alert-info" ng-repeat="app in userData.Admin.Appointments">
+                        <li class="alert alert-info" ng-repeat="app in userData.User.Appointments">
                             <div class="h2">
-                                {{app.Notes}}
+                                {{app.Title}}
                                 <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="changeAppointment(app.Id)">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
@@ -22,8 +37,8 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </div>
-                            Patient:{{app.Patient}} <br />
-                            Employee:{{app.Employee}}<br />
+                            Patient:{{app.Patient.FirstName}} {{app.Patient.LastName}} <br />
+                            Employee:{{app.Employee.FirstName}} {{app.Employee.LastName}}<br />
                             Date:{{app.Date}} <br />
                             Time:{{app.Time}} <br />
                             <form id="{{app.Id}}changeForm" ng-show="hideInactive(app.Id) == true" class="form-horizontal col-lg-12">
@@ -45,7 +60,7 @@
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <select class="form-control"  id="changeType{{app.Id}}">
+                                        <select class="form-control" id="changeType{{app.Id}}">
                                             <option>Dental</option>
                                             <option>Cleaning</option>
                                         </select>
@@ -78,32 +93,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="panel panel-primary" style="height:40%">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Pending Appoinments
-                    </h3>
-                </div>
-                <div class="panel-body" style="height:80%;overflow-y: scroll;">
-                    <ul>
-                        <li class="alert alert-warning" ng-repeat="app in userData.Admin.Appointments">
-                            <div class="h2">
-                                {{app.Notes}}
-                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </button>
-                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                            </div>
-                            Patient:{{app.Patient}} <br />
-                            Employee:{{app.Employee}}<br />
-                            Date:{{app.Date}} <br />
-                            Time:{{app.Time}} <br />
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
         <div class="col-lg-6" style="height:800px">
             <div class="panel panel-primary" style="height:40%">
@@ -125,14 +114,14 @@
                             <label class="control-label col-sm-2 col-lg-3" for="type">Employee:</label>
                             <div class="col-sm-10 col-lg-9">
                                 <select ng-model="employee" class="form-control" id="type">
-                                    <option ng-value="user.Username" ng-show="user.Role == type" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                    <option ng-value="user.Username" ng-show="user.Role == type" ng-repeat="user in userData.User.Users">{{user.FirstName}} {{user.LastName}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="date">Date:</label>
                             <div class="col-sm-10 col-lg-9">
-                                <input ng-model="date"  type="date" id="date" class="form-control" >
+                                <input ng-model="date" type="date" id="date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group col-lg-12">
@@ -148,7 +137,7 @@
                             <div class="col-sm-10 col-lg-9">
                                 <select ng-model="patient" class="form-control" id="type">
                                     <option>N/A</option>
-                                    <option ng-value="user.Username" ng-show="user.Type == 'patient'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
+                                    <option ng-value="user.Username" ng-show="user.Type == 'patient'" ng-repeat="user in userData.User.Users">{{user.FirstName}} {{user.LastName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -171,11 +160,27 @@
                     </h3>
                 </div>
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
-                    <ul>
-                        <li class="well" ng-repeat="user in userData.Admin.Users">
-                            <b>Username:</b> {{user.Username}} <b>First:</b> {{user.FirstName}} <b>Last:</b> {{user.LastName}} <b>Password:</b> {{user.Password}} <b>Type:</b> {{user.Type}}
-                        </li>
-                    </ul>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in userData.User.Users">
+                                <td>{{user.Username}}</td>
+                                <td>{{user.FirstName}}</td>
+                                <td>{{user.LastName}}</td>
+                                <td>{{user.Type}}</td>
+                                <td><span ng-class="{'label label-success': user.Status == 'Active'}">{{user.Status}}</span></td>
+                                <td><button class="confirm-delete btn mini red-stripe" role="button" ng-click="deleteUser(user.Username)">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

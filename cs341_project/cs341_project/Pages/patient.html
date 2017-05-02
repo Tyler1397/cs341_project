@@ -5,86 +5,44 @@
                 {{message}}!
             </h1>
         </div>
-        <div class="col-lg-6" style="height:800px">
-            <div class="panel panel-primary" style="height:40%">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Upcoming Appointments</h3>
-                </div>
-                <div class="panel-body" style="height:80%;overflow-y: scroll;">
-                    <ul>
-                        <li ng-show="app.Approved === 'True'" class="alert alert-info" ng-repeat="app in userData.Patient.FutureAppointments">
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel panel-primary" style="height:40%">
+        <div class="col-lg-6" >
+            <div class="panel panel-primary" style="min-height:100px">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Past Appointments
+                        Notifications
                     </h3>
                 </div>
-                <div class="panel-body" style="height:80%;overflow-y: scroll;">
-                    <ul>
-                        <li ng-show="app.Approved === 'False'" class="alert alert-success" ng-repeat="app in userData.Patient.FutureAppointments">
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
-                        </li>
-                    </ul>
+                <div class="panel-body" style="height:100%;overflow-y: scroll;">
+                    <div class="alert alert-warning" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:1px">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true" ng-click="deleteMessage(msg.Id)">&times;</span>
+                        </button>
+                        {{msg.Info}}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6" style="height:800px">
-            <div class="panel panel-primary" style="height:40%">
+        <div class="col-lg-6" >
+            <div class="panel panel-primary" style="min-height:100px">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Request an Appointment (Not currently functional)</h3>
+                    <h3 class="panel-title">Appointments</h3>
                 </div>
-                <div class="panel-body col-lg-12" style="height:80%;overflow-y: scroll;">
-                    <form class="form-horizontal col-lg-12">
-                        <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <input type="text" class="form-control" id="datepicker">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <select class="form-control" id="type">
-                                    <option ng-repeat="t in time">{{t}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <select class="form-control" id="type">
-                                    <option>Dental</option>
-                                    <option>Cleaning</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="control-label col-sm-2 col-lg-3" for="notes">Notes:</label>
-                            <div class="col-sm-10 col-lg-9">
-                                <textarea style="width:100%" id="notes"></textarea>
-                            </div>
-                        </div>
-                        <div style="text-align:right">
-                            <button class="btn-success">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="panel panel-primary" style="height:40%">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Pending Appointments
-                    </h3>
-                </div>
-                <div class="panel-body" style="height:80%;overflow-y: scroll;">
+                <div class="panel-body" style="height:100%;overflow-y: scroll;">
                     <ul>
-                        <li ng-show="app.Approved === 'Pending'" class="alert alert-warning" ng-repeat="app in userData.Patient.FutureAppointments">
-                            <h4>{{app.Date}} {{app.Time}} {{app.Notes}}</h4> Patient:{{app.Patient}}  Employee:{{app.Employee}}
+                        <li class="alert alert-info" ng-repeat="app in userData.User.Appointments">
+                            <div class="h2">
+                                {{app.Title}}
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="changeAppointment(app.Id)">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="deleteAppointment(app.Id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                            Patient:{{app.Patient.FirstName}} {{app.Patient.LastName}} <br />
+                            Employee:{{app.Employee.FirstName}} {{app.Employee.LastName}}<br />
+                            Date:{{app.Date}} <br />
+                            Time:{{app.Time}} <br />
                         </li>
                     </ul>
                 </div>

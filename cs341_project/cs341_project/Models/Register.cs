@@ -15,8 +15,12 @@ namespace cs341_project.Models
 
         public string Password { get; set; }
 
+        public string Status { get; set; }
+
         public string Role { get; set; }
 
         public string Type { get; set; }
+
+        public string Date { get; set; }
     }
 }

@@ -7,18 +7,24 @@ namespace cs341_project.Models
 {
     public class User
     {
-        public string FirstName { get; set; }
+        public String Username { get; set; }
 
-        public string LastName { get; set; }
+        public String Password { get; set; }
 
-        public string Username { get; set; }
+        public String FirstName { get; set; }
 
-        public string Password { get; set; }
+        public String LastName { get; set; }
 
-        public string Active { get; set; }
+        public String Status { get; set; }
 
-        public string Type { get; set; }
+        public String Type { get; set; }
 
-        public string Role { get; set; }
+        public String StartDate { get; set; }
+
+        public String EndDate { get; set; }
+
+        public LinkedList<Message> Messages { get; set; }
+
+        public LinkedList<Appointment> Appointments { get; set; }
     }
 }

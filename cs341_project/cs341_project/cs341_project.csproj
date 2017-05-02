@@ -210,19 +210,23 @@
     <Compile Include="Controllers\AddAppointmentController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\DeleteAppointmentController.cs" />
+    <Compile Include="Controllers\DeleteMessageController.cs" />
+    <Compile Include="Controllers\DeleteUserController.cs" />
     <Compile Include="Facades\DatabaseFacade.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppointmentTemplate.cs" />
+    <Compile Include="Models\LoginCredentials.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\LoginCredentials.cs" />
     <Compile Include="Models\LoginResult.cs" />
-    <Compile Include="Models\Patient.cs" />
-    <Compile Include="Models\Register.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserResult.cs" />
+    <Compile Include="Models\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

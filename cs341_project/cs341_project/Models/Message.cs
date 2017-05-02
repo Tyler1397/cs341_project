@@ -5,8 +5,10 @@ using System.Web;
 
 namespace cs341_project.Models
 {
-    public class Admin : User
+    public class Message
     {
-        public LinkedList<User> Users { get; set; }
+        public String Id { get; set; }
+
+        public String Info { get; set; }
     }
 }
