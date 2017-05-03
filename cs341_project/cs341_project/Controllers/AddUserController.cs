@@ -1,4 +1,6 @@
-﻿using cs341_project.Facades;
+﻿// Author: Tyler Timm
+// Description: Api for adding users to the database
+using cs341_project.Facades;
 using cs341_project.Models;
 using System.Web.Http;
 

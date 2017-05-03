@@ -1,4 +1,6 @@
-﻿cs341.controller('employeeController', function ($state, $scope, $rootScope,$http) {
+﻿// Author: Tyler Timm
+// Description: This class handles the functionality of the employee page
+cs341.controller('employeeController', function ($state, $scope, $rootScope, $http) {
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Logout");
 
@@ -27,4 +29,32 @@
         });
     }
 
+    // function takes in an appointment id and deletes it from the database
+    $scope.deleteAppointment = function (id) {
+        var answer = confirm("Are you sure you want to cancel appointment?");
+        if (answer == true) {
+            $http({
+                url: "api/DeleteAppointment",
+                method: "Post",
+                data: JSON.stringify(id + "")
+            })
+   .then(function (response) {
+       for (var i = 0; i < $scope.userData.User.Appointments.length ; i++) {
+           if ($scope.userData.User.Appointments[i].Id === id) {
+               $scope.userData.User.Appointments.splice(i, 1);
+               break;
+           }
+       }
+       $http({
+           url: "api/GetMessages",
+           method: "Post",
+           data: JSON.stringify($scope.userData.User.Username)
+       })
+.then(function (response) {
+    $scope.userData.User.Messages = response.data;
+    $rootScope.data = $scope.userData;
+});
+   });
+        }
+    }
 });

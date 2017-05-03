@@ -1,9 +1,15 @@
-﻿cs341.controller('adminController', function ($state, $scope, $rootScope, $http, $filter) {
+﻿// Author: Tyler Timm
+// Description: This class handles the functionality of the admin page
+cs341.controller('adminController', function ($state, $scope, $rootScope, $http, $filter) {
+
+    // visual effect
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Logout");
 
+    // set active appointment to null
     $scope.active = '';
 
+    // grab global data
     $scope.userData = $rootScope.data;
 
     // if the user trys to access page and they havent logged in, redirect to login page
@@ -40,10 +46,13 @@
     }
 
     // function takes in a time var, then checks to see if the time is available, given the current selections
-    $scope.employeeAvailable = function (time) {
-        for (var i = 0; i < $scope.userData.Admin.Appointments.length; i++) {
-            var temp = $scope.userData.Admin.Appointments[i];
-            if (temp.Employee === $scope.employee && temp.Time === time && temp.Date === $filter('date')($scope.date, 'MM/dd/yyyy')) {
+    $scope.userAvailable = function (time) {
+        for (var i = 0; i < $scope.userData.User.Appointments.length; i++) {
+            var temp = $scope.userData.User.Appointments[i];
+            if (temp.Employee.Username === $scope.employee && temp.Time === time && temp.Date === $filter('date')($scope.date, 'MM/dd/yyyy')) {
+                return false;
+            }
+            if (temp.Patient.Username === $scope.patient && temp.Time === time && temp.Date === $filter('date')($scope.date, 'MM/dd/yyyy')) {
                 return false;
             }
         }
@@ -60,19 +69,23 @@
                 data: JSON.stringify(id + "")
             })
    .then(function (response) {
-       for (var i = 0; i < $scope.userData.Admin.Appointments.length ; i++) {
-           if ($scope.userData.Admin.Appointments[i].Id === id) {
-               $scope.userData.Admin.Appointments.splice(i, 1);
-               return;
+       for (var i = 0; i < $scope.userData.User.Appointments.length ; i++) {
+           if ($scope.userData.User.Appointments[i].Id === id) {
+               $scope.userData.User.Appointments.splice(i, 1);
+               break;
            }
        }
+       $http({
+           url: "api/GetMessages",
+           method: "Post",
+           data: JSON.stringify($scope.userData.User.Username)
+       })
+.then(function (response) {
+    $scope.userData.User.Messages = response.data;
+    $rootScope.data = $scope.userData;
+});
    });
         }
-    }
-
-    // function takes in an appointment id and updates it in the database
-    $scope.updateAppointment = function (id) {
-        alert($scope.changeTime + " time");
     }
 
     // function takes in an id and returns true if it is the active appointment
@@ -100,11 +113,53 @@
         });
     }
 
+    // function takes in an appointment object, and passes it into the web api to update the appointment, following that messages are refreshed
+    $scope.updateAppointment = function (app) {
+        var input = {
+            Date: $filter('date')(app.Date, 'MM/dd/yyyy'),
+            Patient: app.Patient.Username,
+            Employee: app.Employee.Username,
+            Status: "Changed",
+            Title: app.Title,
+            Time: app.Time,
+            Id: app.Id
+        };   
+        $http({
+            url: "api/UpdateAppointment",
+            method: "Post",
+            data: input
+        })
+   .then(function (response) {
+       // remove the old appointment
+       for (var i = 0; i < $scope.userData.User.Appointments.length; i++) {
+           if ($scope.userData.User.Appointments[i].Id == input.Id) {
+               $scope.userData.User.Appointments.splice(i, 1);
+               break;
+           }
+       }
+       // add new appointment to array and update global data
+       $scope.userData.User.Appointments.push(response.data);
+       $rootScope.data = $scope.userData;
+       $scope.active = '';
+       // update user messages
+       $http({
+           url: "api/GetMessages",
+           method: "Post",
+           data: JSON.stringify($scope.userData.User.Username)
+       })
+.then(function (response) {
+    // update global data
+    $scope.userData.User.Messages = response.data;
+    $rootScope.data = $scope.userData;
+});
+   });
+    }
+
     // welcome message
     $scope.message = "Hello " + $scope.userData.User.FirstName;
 
     // all allowable times for appointments
-    $scope.time = ['8:00AM - 9:00AM', '9:00AM - 10:00AM', '10:00AM - 11:00AM', '11:00AM - 12:00PM', '1:00PM - 2:00PM', '2:00PM - 3:00PM', '3:00PM - 4:00PM', '4:00PM - 5PM'];
+    $scope.times = ['8:00AM - 9:00AM', '9:00AM - 10:00AM', '10:00AM - 11:00AM', '11:00AM - 12:00PM', '1:00PM - 2:00PM', '2:00PM - 3:00PM', '3:00PM - 4:00PM', '4:00PM - 5PM'];
 
     // function grabs all info for a new appointment,checks to see if it is a valid appointment, and attempts to schedule it
     $scope.createAppointment = function () {
@@ -113,9 +168,10 @@
             Patient: $scope.patient,
             Employee: $scope.employee,
             Status: "Active",
-            Title: $scope.notes,
+            Title: $scope.title,
             Time: $scope.time
         };
+
         $http({
             url: "api/AddAppointment",
             method: "Post",
@@ -124,6 +180,17 @@
    .then(function (response) {
        $scope.userData.User.Appointments.push(response.data);
        $rootScope.data = $scope.userData;
+       $http({
+           url: "api/GetMessages",
+           method: "Post",
+           data: JSON.stringify($scope.userData.User.Username)
+       })
+.then(function (response) {
+    $scope.userData.User.Messages = response.data;
+    $rootScope.data = $scope.userData;
+});
    });
     }
+
+
 });

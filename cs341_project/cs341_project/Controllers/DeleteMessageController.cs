@@ -1,9 +1,6 @@
-﻿using cs341_project.Facades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿// Author: Tyler Timm
+// Description: Api for deleting messages from the database
+using cs341_project.Facades;
 using System.Web.Http;
 
 namespace cs341_project.Controllers

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
+﻿// Author: Tyler Timm
+// Description: Model to keep track of login credentials
 
 namespace cs341_project.Models
 {

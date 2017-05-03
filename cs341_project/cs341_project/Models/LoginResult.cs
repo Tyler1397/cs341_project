@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// Author: Tyler Timm
+// Description: Model to track User info after logging in
+using System;
 
 namespace cs341_project.Models
 {

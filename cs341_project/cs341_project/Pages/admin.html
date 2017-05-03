@@ -1,4 +1,5 @@
-﻿<div class="col-lg-10">
+﻿<!--Author: Tyler Timm Description: Admin page-->
+<div class="col-lg-10">
     <div class="row well" style="height:800px">
         <div class="panel-heading">
             <h1>
@@ -13,11 +14,11 @@
                     </h3>
                 </div>
                 <div class="panel-body" style="height:80%;overflow-y: scroll;">
-                    <div class="alert alert-warning" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:1px">
+                    <div class="alert alert-success" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:5px">
                         <button type="button" class="close" aria-label="Close">
                             <span aria-hidden="true" ng-click="deleteMessage(msg.Id)">&times;</span>
                         </button>
-                        {{msg.Info}}
+                        <B>{{msg.Info}}</B>
                     </div>
                 </div>
             </div>
@@ -41,52 +42,39 @@
                             Employee:{{app.Employee.FirstName}} {{app.Employee.LastName}}<br />
                             Date:{{app.Date}} <br />
                             Time:{{app.Time}} <br />
+                            Status:{{app.Status}} <br />
                             <form id="{{app.Id}}changeForm" ng-show="hideInactive(app.Id) == true" class="form-horizontal col-lg-12">
                                 <br />
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="datepicker">Date:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <input type="date" class="form-control" id="changeDate{{app.Id}}" placeholder="{{app.Date}}">
+                                        <input ng-model ="app.Date" type="date" class="form-control" placeholder="{{app.Date}}">
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <select class="form-control" id="changeTime{{app.Id}}">
-                                            <option ng-repeat="t in time">{{t}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <label class="control-label col-sm-2 col-lg-3" for="type">Type:</label>
-                                    <div class="col-sm-10 col-lg-9">
-                                        <select class="form-control" id="changeType{{app.Id}}">
-                                            <option>Dental</option>
-                                            <option>Cleaning</option>
+                                        <select ng-model="app.Time" class="form-control">
+                                            <option ng-repeat="t in times">{{t}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Employee:</label>
-                                    <div class="col-sm-10 col-lg-9">
-                                        <select class="form-control" id="type">
-                                            <option>N/A</option>
-                                            <option ng-value="user.Username" ng-show="user.Type == 'employee'" ng-repeat="user in userData.Admin.Users">{{user.FirstName}} {{user.LastName}}</option>
-                                        </select>
-                                    </div>
+                                    <label class="control-label col-sm-10 col-lg-6" for="type">{{app.Employee.FirstName}} {{app.Employee.LastName}}</label>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <label class="control-label col-sm-2 col-lg-3" for="type">Patient:</label>
-                                    <label class="control-label col-sm-2 col-lg-3" for="type">{{app.Patient}}</label>
+                                    <label class="control-label col-sm-10 col-lg-6" for="type">{{app.Patient.FirstName}} {{app.Patient.LastName}}</label>
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <label class="control-label col-sm-2 col-lg-3" for="notes">Notes:</label>
+                                    <label class="control-label col-sm-2 col-lg-3" for="notes">Desciption:</label>
                                     <div class="col-sm-10 col-lg-9">
-                                        <textarea style="width:100%" id="notes" placeholder="{{app.Notes}}"></textarea>
+                                        <textarea ng-model="app.Title" style="width:100%" placeholder="{{app.Title}}"></textarea>
                                     </div>
                                 </div>
                                 <div style="text-align:right">
-                                    <button class="btn-success" ng-click="updateAppointment(app.id)">Submit</button>
+                                    <button class="btn-success" ng-click="updateAppointment(app)">Submit</button>
                                 </div>
                             </form>
                         </li>
@@ -128,7 +116,7 @@
                             <label class="control-label col-sm-2 col-lg-3" for="type">Time</label>
                             <div class="col-sm-10 col-lg-9">
                                 <select ng-model="time" class="form-control" id="type">
-                                    <option ng-repeat="t in time" ng-show="employeeAvailable(t)">{{t}}</option>
+                                    <option ng-repeat="t in times" ng-show="userAvailable(t)">{{t}}</option>
                                 </select>
                             </div>
                         </div>
@@ -144,7 +132,7 @@
                         <div class="form-group col-lg-12">
                             <label class="control-label col-sm-2 col-lg-3" for="notes">Notes:</label>
                             <div class="col-sm-10 col-lg-9">
-                                <textarea ng-model="notes" style="width:100%" id="notes"></textarea>
+                                <textarea ng-model="title" style="width:100%" id="notes"></textarea>
                             </div>
                         </div>
                         <div style="text-align:right">
@@ -176,8 +164,8 @@
                                 <td>{{user.FirstName}}</td>
                                 <td>{{user.LastName}}</td>
                                 <td>{{user.Type}}</td>
-                                <td><span ng-class="{'label label-success': user.Status == 'Active'}">{{user.Status}}</span></td>
-                                <td><button class="confirm-delete btn mini red-stripe" role="button" ng-click="deleteUser(user.Username)">Delete</button></td>
+                                <td><span ng-class="{'label label-success': user.Status == 'Active','label label-danger': user.Status == 'Deleted'}">{{user.Status}}</span></td>
+                                <td ng-hide="user.Status == 'Deleted'"><button class="confirm-delete btn mini red-stripe" role="button" ng-click="deleteUser(user.Username)">Delete</button></tdng-sho>
                             </tr>
                         </tbody>
                     </table>

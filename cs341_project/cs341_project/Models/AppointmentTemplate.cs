@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// Author: Tyler Timm
+// Description: Model template for an appointment, used by the front end
+using System;
 
 namespace cs341_project.Models
 {
     public class AppointmentTemplate
     {
+        public String Id { get; set; }
+
         public String Patient { get; set; }
 
         public String Employee { get; set; }

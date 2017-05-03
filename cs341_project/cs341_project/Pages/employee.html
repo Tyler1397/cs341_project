@@ -1,40 +1,38 @@
-﻿<div class="col-lg-10">
+﻿<!--Author: Tyler Timm Description: Employee page-->
+<div class="col-lg-10">
     <div class="row well">
         <div class="panel-heading">
             <h1>
                 {{message}}!
             </h1>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary" style="min-height:100px">
+        <div class="col-lg-6" style="height:400px">
+            <div class="panel panel-primary" style="height:100%">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Notifications
                     </h3>
                 </div>
-                <div class="panel-body" style="height:100%;overflow-y: scroll;">
-                    <div class="alert alert-warning" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:1px">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
+                    <div class="alert alert-success" role="alert" ng-repeat="msg in userData.User.Messages" style="margin:1px">
                         <button type="button" class="close" aria-label="Close">
                             <span aria-hidden="true" ng-click="deleteMessage(msg.Id)">&times;</span>
                         </button>
-                        {{msg.Info}}
+                        <B>{{msg.Info}}</B>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="panel panel-primary" style="min-height:100px">
+        <div class="col-lg-6"  style="height:400px">
+            <div class="panel panel-primary" style="height:100%">
                 <div class="panel-heading">
                     <h3 class="panel-title">Appointments</h3>
                 </div>
-                <div class="panel-body" style="height:100%;overflow-y: scroll;">
+                <div class="panel-body" style="height:80%;overflow-y: scroll;">
                     <ul>
                         <li class="alert alert-info" ng-repeat="app in userData.User.Appointments">
                             <div class="h2">
                                 {{app.Title}}
-                                <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="changeAppointment(app.Id)">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
                                 <button type="button" class="btn btn-default" aria-label="Right Align" style="float: right;" ng-click="deleteAppointment(app.Id)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>

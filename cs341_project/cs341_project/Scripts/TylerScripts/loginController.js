@@ -1,19 +1,26 @@
-﻿cs341.controller('loginController', function ($scope, $http, $rootScope, $state) {
+﻿// Author: Tyler Timm
+// Description: This script handles the functionality of the login page
+cs341.controller('loginController', function ($scope, $http, $rootScope, $state) {
     scope = $scope;
+
+    // visual effects
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Login");
     $('#error').hide();
 
+    // variables to track input and errors
     scope.errorExists = false;
     scope.message = '';
     scope.loading = false;
     scope.username = '';
     scope.password = '';
 
+    // return true if an error exists
     scope.errorExists = function(){
         return $scope.data.User == null;
     }
 
+    // attemp to login to the web app
     scope.login = function () {
         scope.input = {
             Username: scope.username,
@@ -53,13 +60,9 @@
     });
     }
 
+    // login
     scope.submit = function () {
-        var delayMillis = 1000; //1 second
         scope.loading = true;
-        setTimeout(function () {
-            scope.login();
-        }, delayMillis)
+        scope.login();
     }
-
-
 });

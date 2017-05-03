@@ -1,4 +1,6 @@
-﻿cs341.controller('registerController', function ($scope,$http,$state) {
+﻿// Author: Tyler Timm
+// Description: This script handles the functionality of the register page
+cs341.controller('registerController', function ($scope, $http, $state) {
     scope = $scope;
 
     scope.adminKey = "admin";
@@ -6,7 +8,7 @@
     scope.ErrorMesage = '';
 
     scope.invalid = function () {
-        if(scope.firstName == null || scope.lastName == null || scope.username == null || scope.password == null){
+        if (scope.firstName == null || scope.lastName == null || scope.username == null || scope.password == null) {
             return true;
         }
         return false;
@@ -31,7 +33,7 @@
 
         if (scope.key === scope.adminKey) {
             input.Type = "admin";
-        }else if (scope.key === scope.employeeKey) {
+        } else if (scope.key === scope.employeeKey) {
             input.Type = "employee";
             input.Role = scope.employee;
         } else {

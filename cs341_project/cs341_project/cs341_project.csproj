@@ -212,6 +212,8 @@
     <Compile Include="Controllers\DeleteAppointmentController.cs" />
     <Compile Include="Controllers\DeleteMessageController.cs" />
     <Compile Include="Controllers\DeleteUserController.cs" />
+    <Compile Include="Controllers\GetMessagesController.cs" />
+    <Compile Include="Controllers\UpdateAppointmentController.cs" />
     <Compile Include="Facades\DatabaseFacade.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,7 +271,6 @@
     <Content Include="Scripts\DefaultScripts\respond.min.js" />
     <Content Include="Scripts\DefaultScripts\_references.js" />
     <Content Include="index.html" />
-    <Content Include="Pages\home.html" />
     <Content Include="Scripts\TylerScripts\patientController.js" />
     <Content Include="Scripts\TylerScripts\registerController.js" />
     <Content Include="Web.config" />

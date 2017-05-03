@@ -1,4 +1,5 @@
-﻿ 
+﻿// Author: Tyler Timm
+// Description: This script handles the routing for the web application
 var cs341 = angular.module("cs341", ['ui.router']);
 
 cs341.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

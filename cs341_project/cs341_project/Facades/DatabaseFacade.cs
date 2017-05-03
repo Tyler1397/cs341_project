@@ -1,4 +1,6 @@
-﻿using cs341_project.Models;
+﻿// Author: Tyler Timm
+// Description: This class handles all queries to the database
+using cs341_project.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -76,7 +78,7 @@ namespace cs341_project.Facades
                     dataReader.Close();
                     command.Dispose();
                     cnn.Close();
-                    if(output.User == null)
+                    if (output.User == null)
                     {
                         output.Message = "Error: Username or password is incorrect";
                     }
@@ -97,7 +99,7 @@ namespace cs341_project.Facades
             {
                 output.Message = "Username " + login.Username + " does not exist in System";
             }
-            
+
             return output;
         }
 
@@ -160,12 +162,12 @@ namespace cs341_project.Facades
             }
             return output;
         }
-        
+
         /*
          * Author: Tyler Timm
          * Description: Method takes in a username, and returns a partially filled User object
          * Params: string representing user name
-         * Return: User object with non-sensitive data filled out
+         * Return: User object with non-sensitive data filled out (first name, last name, username, type, and possibly role)
          */
         public User GetPartialUser(string username)
         {
@@ -183,7 +185,7 @@ namespace cs341_project.Facades
                     switch (dataReader["Type"].ToString())
                     {
                         case "patient":
-                            output= new User();
+                            output = new User();
                             break;
                         case "admin":
                             Admin admin = new Admin();
@@ -211,6 +213,12 @@ namespace cs341_project.Facades
             }
         }
 
+        /*
+         * Author: Tyler Timm
+         * Description: Method returns a linked list containing all appointments in the database
+         * Params: N/A
+         * Return: LinkedList of appointments
+         */
         public LinkedList<Appointment> GetAllAppointments()
         {
             LinkedList<Appointment> output = new LinkedList<Appointment>();
@@ -287,7 +295,7 @@ namespace cs341_project.Facades
         * Params: string representing username and string representing message
         * Return: string specifiying if the insert was successful
         */
-        public String GenerateMessage(String user,String msg)
+        public String GenerateMessage(String user, String msg)
         {
             SqlConnection cnn = new SqlConnection(connectionString);
             string sql = "INSERT INTO dbo.Messages VALUES ('" + user + "','" + msg + "')";
@@ -310,7 +318,7 @@ namespace cs341_project.Facades
         * Author: Tyler Timm
         * Description: Method takes in a username, and returns a list of all of that users messages
         * Params: string representing username
-        * Return: ILinkedList containing all of that users messages
+        * Return: LinkedList containing all of that users messages
         */
         public LinkedList<Message> GetMessages(String username)
         {
@@ -347,7 +355,7 @@ namespace cs341_project.Facades
         public Appointment AddAppointment(Appointment app)
         {
             SqlConnection cnn = new SqlConnection(connectionString);
-            string sql = "INSERT INTO dbo.AllAppointments (Date,Patient,Employee,Status,Title,Time) VALUES ('"+app.Date+"','" + app.Patient.Username + "','" + app.Employee.Username + "','" + app.Status + "','" + app.Title + "','" + app.Time + "')";
+            string sql = "INSERT INTO dbo.AllAppointments (Date,Patient,Employee,Status,Title,Time) VALUES ('" + app.Date + "','" + app.Patient.Username + "','" + app.Employee.Username + "','" + app.Status + "','" + app.Title + "','" + app.Time + "')";
             try
             {
                 cnn.Open();
@@ -356,6 +364,11 @@ namespace cs341_project.Facades
                 command.Dispose();
                 cnn.Close();
                 app.Id = GetAppointmentId(app.Patient.Username, app.Employee.Username, app.Date, app.Time);
+
+                // generate messages for all involved users
+                GenerateMessageForMultipleUsers(app.Title + " appointment created for " + app.Patient.Username + " with employee " + app.Employee.Username + " on " + app.Date + " " + app.Time, GetAllAdmins());
+                GenerateMessage(app.Patient.Username, "You have been scheduled for a " + app.Title + " with " + app.Employee.FirstName + " " + app.Employee.LastName + " on " + app.Date + " from " + app.Time);
+                GenerateMessage(app.Employee.Username, "You have been scheduled for a " + app.Title + " with " + app.Patient.FirstName + " " + app.Patient.LastName + " on " + app.Date + " from " + app.Time);
                 return app;
             }
             catch (Exception ex)
@@ -364,7 +377,13 @@ namespace cs341_project.Facades
             }
         }
 
-        private string GetAppointmentId(string patient,string employee,string date,string time)
+        /*
+         * Author: Tyler Timm
+         * Description: Method takes a patient,employee,date,and time and returns the appointment Id associated with it
+         * Params: string patient,employee,date,time
+         * Return: string id
+         */
+        private string GetAppointmentId(string patient, string employee, string date, string time)
         {
             SqlConnection cnn = new SqlConnection(connectionString);
             string sql = "SELECT Id FROM dbo.AllAppointments WHERE Patient ='" + patient + "' AND Employee ='" + employee + "' AND Date ='" + date + "' AND Time ='" + time + "'";
@@ -386,17 +405,17 @@ namespace cs341_project.Facades
             }
             catch (Exception ex)
             {
-                return null;
+                return ex.ToString();
             }
         }
 
         /*
          * Author: Tyler Timm
          * Description: Method takes a User and a role, and adds it to the database
-         * Params: User object , string
+         * Params: User object, string
          * Return: String with output message
          */
-        public String AddUser(User user,String role)
+        public String AddUser(User user, String role)
         {
             //hash the password
             var sha1 = new SHA1CryptoServiceProvider();
@@ -411,7 +430,7 @@ namespace cs341_project.Facades
                 return "User already exists";
             }
 
-            sql = "INSERT INTO dbo.AllUsers (Username,Password,FirstName,LastName,Status,StartDate,Type,Role)VALUES ('" + user.Username + "','" + System.Text.Encoding.Default.GetString(hashedPassword) + "','" + user.FirstName + "','" + user.LastName + "','" + user.Status + "','" + user.StartDate + "','" + user.Type + "','"+role+"')";
+            sql = "INSERT INTO dbo.AllUsers (Username,Password,FirstName,LastName,Status,StartDate,Type,Role)VALUES ('" + user.Username + "','" + System.Text.Encoding.Default.GetString(hashedPassword) + "','" + user.FirstName + "','" + user.LastName + "','" + user.Status + "','" + user.StartDate + "','" + user.Type + "','" + role + "')";
             try
             {
                 cnn.Open();
@@ -420,11 +439,12 @@ namespace cs341_project.Facades
                 command.Dispose();
                 cnn.Close();
                 GenerateMessageForMultipleUsers("New user " + user.Username + " registered on " + user.StartDate, GetAllAdmins());
-                return GenerateMessage(user.Username, "Welcome to your new profile! Your username is " + user.Username + " and your password is " + user.Password);
+                GenerateMessage(user.Username, "Welcome to your new profile! Your username is " + user.Username + " and your password is " + user.Password);
+                return "";
             }
             catch (Exception ex)
             {
-                return "Failed to create new user "+ System.Text.Encoding.Default.GetString(hashedPassword) +" "+ ex;
+                return "Failed to create new user " + System.Text.Encoding.Default.GetString(hashedPassword) + " " + ex;
             }
         }
 
@@ -437,7 +457,7 @@ namespace cs341_project.Facades
         public bool UserExists(string username)
         {
             bool exists = false;
-            string sql = "SELECT Username FROM dbo.AllUsers WHERE Username = '"+username+"';";
+            string sql = "SELECT Username FROM dbo.AllUsers WHERE Username = '" + username + "';";
             SqlDataReader dataReader;
             SqlConnection cnn = new SqlConnection(connectionString);
             try
@@ -464,12 +484,13 @@ namespace cs341_project.Facades
         * Author: Tyler Timm
         * Description: Method takes in an id, and deletes the appointment that corresponds to it
         * Params: string representing id
-        * Return: string indicating if the delete was successful or not
+        * Return: N/A
         */
-        public string DeleteAppointment(string id)
+        public void DeleteAppointment(string id)
         {
             SqlConnection cnn = new SqlConnection(connectionString);
-            String sql = "DELETE FROM dbo.AllAppointments WHERE Id='"+id+"'";
+            String sql = "DELETE FROM dbo.AllAppointments WHERE Id='" + id + "'";
+            Appointment appointment = GetAppointment(id);
             try
             {
                 cnn.Open();
@@ -477,11 +498,57 @@ namespace cs341_project.Facades
                 command.ExecuteNonQuery();
                 command.Dispose();
                 cnn.Close();
-                return "Successfully deleted appointment";
+
+                // create messages for all users involved
+                GenerateMessageForMultipleUsers(appointment.Title + " with " + appointment.Patient.FirstName + " and " + appointment.Employee.Username + " scheduled for " + appointment.Date + " " + appointment.Time + " has been cancelled", GetAllAdmins());
+                GenerateMessage(appointment.Employee.Username, "Your appointment for " + appointment.Title + " with " + appointment.Patient.FirstName + " " + appointment.Patient.LastName + " scheduled for " + appointment.Date + " " + appointment.Time + " has been cancelled");
+                GenerateMessage(appointment.Patient.Username, "Your appointment for " + appointment.Title + " with " + appointment.Employee.FirstName + " " + appointment.Employee.LastName + " scheduled for " + appointment.Date + " " + appointment.Time + " has been cancelled");
             }
             catch (Exception ex)
             {
-                return ex.ToString();
+
+            }
+        }
+
+        /*
+        * Author: Tyler Timm
+        * Description: Method takes in an id, and returns the appointment that corresponds to it
+        * Params: string representing id
+        * Return: appointment
+        */
+        public Appointment GetAppointment(string id)
+        {
+            string sql = "SELECT * from dbo.AllAppointments WHERE Id='" + id + "'";
+            SqlDataReader dataReader;
+            SqlConnection cnn = new SqlConnection(connectionString);
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    Appointment temp = new Appointment();
+                    temp.Id = dataReader["Id"].ToString();
+                    temp.Date = dataReader["Date"].ToString();
+                    temp.Patient = GetPartialUser(dataReader["Patient"].ToString());
+                    temp.Employee = GetPartialUser(dataReader["Employee"].ToString());
+                    temp.Status = dataReader["Status"].ToString();
+                    temp.Title = dataReader["Title"].ToString();
+                    temp.Time = dataReader["Time"].ToString();
+                    dataReader.Close();
+                    command.Dispose();
+                    cnn.Close();
+                    return temp;
+                }
+                dataReader.Close();
+                command.Dispose();
+                cnn.Close();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 
@@ -496,7 +563,7 @@ namespace cs341_project.Facades
             DeleteMessages(id);
             SqlConnection cnn = new SqlConnection(connectionString);
             DateTime thisDay = DateTime.Today;
-            String sql = "UPDATE dbo.AllUsers SET Status ='Deleted',EndDate='"+ thisDay.ToString("d")+"' WHERE Username='" + id + "'";
+            String sql = "UPDATE dbo.AllUsers SET Status ='Deleted',EndDate='" + thisDay.ToString("d") + "' WHERE Username='" + id + "'";
             try
             {
                 cnn.Open();
@@ -504,7 +571,7 @@ namespace cs341_project.Facades
                 command.ExecuteNonQuery();
                 command.Dispose();
                 cnn.Close();
-                GenerateMessageForMultipleUsers("User " + id + " has been deleted ", GetAllAdmins());
+                GenerateMessageForMultipleUsers("User " + id + " has been deleted on " + thisDay.ToString("d"), GetAllAdmins());
                 return "Successfully deleted user";
             }
             catch (Exception ex)
@@ -597,18 +664,48 @@ namespace cs341_project.Facades
             }
         }
 
-
         /*
         * Author: Tyler Timm
         * Description: private method takes in a message and a linked list, and generates that message for all users in the list
         * Params: string representing message, a list of users
         * Return: N/A
         */
-        private void GenerateMessageForMultipleUsers(string msg,LinkedList<string> users)
+        private void GenerateMessageForMultipleUsers(string msg, LinkedList<string> users)
         {
-            foreach(string id in users)
+            foreach (string id in users)
             {
                 GenerateMessage(id, msg);
+            }
+        }
+
+       /*
+       * Author: Tyler Timm
+       * Description: method takes in an appointment and updates it in the database
+       * Params: updated Appointment
+       * Return: Updated Appointment
+       */
+        public Appointment UpdateAppointment(Appointment app)
+        {
+            SqlConnection cnn = new SqlConnection(connectionString);
+            string sql = "UPDATE dbo.AllAppointments SET Date ='" + app.Date + "', Status ='" + app.Status + "', Title ='" + app.Title + "', Time ='" + app.Time + "' WHERE Id ='" + app.Id + "'";
+            try
+            {
+                cnn.Open();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                cnn.Close();
+
+                // generate messages for all involved users
+                GenerateMessageForMultipleUsers(app.Title + " appointment updated for " + app.Patient.Username + " with employee " + app.Employee.Username + " on " + app.Date + " " + app.Time, GetAllAdmins());
+                GenerateMessage(app.Patient.Username, "Your appointment for " + app.Title + " with " + app.Employee.FirstName + " " + app.Employee.LastName + " has been rescheduled for " + app.Date + " from " + app.Time);
+                GenerateMessage(app.Employee.Username, "Your appointment for " + app.Title + " with " + app.Patient.FirstName + " " + app.Patient.LastName + " has been rescheduled for " + app.Date + " from " + app.Time);
+                return app;
+            }
+            catch (Exception ex)
+            {
+                app.Patient.Username = ex.ToString();
+                return app;
             }
         }
     }

@@ -1,7 +1,6 @@
-﻿using System;
+﻿// Author: Tyler Timm
+// Description: Model for User
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace cs341_project.Models
 {

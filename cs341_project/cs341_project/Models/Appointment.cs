@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// Author: Tyler Timm
+// Description: Model for appointment
+using System;
 
 namespace cs341_project.Models
 {

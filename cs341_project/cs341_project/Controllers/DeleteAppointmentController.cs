@@ -1,4 +1,6 @@
-﻿using cs341_project.Facades;
+﻿// Author: Tyler Timm
+// Description: Api for deleting appointments from the database
+using cs341_project.Facades;
 using System.Web.Http;
 
 namespace cs341_project.Controllers
@@ -7,10 +9,10 @@ namespace cs341_project.Controllers
     {
         [Route("api/DeleteAppointment")]
         [HttpPost]
-        public string Post([FromBody]string id)
+        public void Post([FromBody]string id)
         {
             DatabaseFacade facade = new DatabaseFacade();
-            return facade.DeleteAppointment(id);
+            facade.DeleteAppointment(id);
         }
     }
 }
