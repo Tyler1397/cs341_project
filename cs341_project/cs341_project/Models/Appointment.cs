@@ -1,5 +1,5 @@
 ﻿// Author: Tyler Timm
-// Description: Model for appointment
+// Description: Model for appointment 
 using System;
 
 namespace cs341_project.Models

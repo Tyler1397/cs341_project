@@ -258,6 +258,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="adminHelp.pdf" />
+    <Content Include="patientHelp.pdf" />
     <None Include="Scripts\DefaultScripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DefaultScripts\jquery-1.10.2.js" />
     <Content Include="Scripts\DefaultScripts\jquery-1.10.2.min.js" />
