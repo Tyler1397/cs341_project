@@ -440,7 +440,7 @@ namespace cs341_project.Facades
                 cnn.Close();
                 GenerateMessageForMultipleUsers("New user " + user.Username + " registered on " + user.StartDate, GetAllAdmins());
                 GenerateMessage(user.Username, "Welcome to your new profile! Your username is " + user.Username + " and your password is " + user.Password);
-                return "";
+                return "Successfully created user "+user.Username;
             }
             catch (Exception ex)
             {
