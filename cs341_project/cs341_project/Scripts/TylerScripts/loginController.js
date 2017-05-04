@@ -8,6 +8,10 @@ cs341.controller('loginController', function ($scope, $http, $rootScope, $state)
     $('#loginLogout').text("Login");
     $('#error').hide();
 
+    // switch to patient-employee help guide
+    document.getElementById("patientHelp").style.display = "block";
+    document.getElementById("adminHelp").style.display = "none";
+
     // variables to track input and errors
     scope.errorExists = false;
     scope.message = '';

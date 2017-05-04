@@ -6,6 +6,10 @@ cs341.controller('adminController', function ($state, $scope, $rootScope, $http,
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Logout");
 
+    // switch to admin help guide
+    document.getElementById("patientHelp").style.display = "none";
+    document.getElementById("adminHelp").style.display = "block";
+
     // set active appointment to null
     $scope.active = '';
 
