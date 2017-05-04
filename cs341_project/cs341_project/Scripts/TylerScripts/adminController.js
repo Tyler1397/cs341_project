@@ -2,6 +2,19 @@
 // Description: This class handles the functionality of the admin page
 cs341.controller('adminController', function ($state, $scope, $rootScope, $http, $filter) {
 
+
+    $scope.appointmentSearch = "";
+    $scope.filter = "Patient"
+
+    $scope.getFilter = function () {
+        switch ($scope.filter) {
+            case 'Patient':
+                return { Patient: { FirstName: $scope.appointmentSearch } };
+            case 'Employee':
+                return { Employee: { FirstName: $scope.appointmentSearch } };
+        }
+    }
+
     // visual effect
     $('#main').hide().fadeIn("slow");
     $('#loginLogout').text("Logout");
@@ -30,6 +43,7 @@ cs341.controller('adminController', function ($state, $scope, $rootScope, $http,
         }
     }
 
+
     // function takes in an id representing a username and sets its status to deleted
     $scope.deleteUser = function (id) {
         var answer = confirm("Are you sure you want to delete " + id + "?");
@@ -45,6 +59,15 @@ cs341.controller('adminController', function ($state, $scope, $rootScope, $http,
                $scope.userData.User.Users[i].Status = "Deleted";
            }
        }
+       $http({
+           url: "api/GetMessages",
+           method: "Post",
+           data: JSON.stringify($scope.userData.User.Username)
+       })
+.then(function (response) {
+    $scope.userData.User.Messages = response.data;
+    $rootScope.data = $scope.userData;
+});
    });
         }
     }
